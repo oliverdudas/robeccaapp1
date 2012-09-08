@@ -1,0 +1,10 @@
+<component name="libraryTable">
+  <library name="Picasa lib">
+    <CLASSES>
+      <root url="file://$PROJECT_DIR$/lib/picasa" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+    <jarDirectory url="file://$PROJECT_DIR$/lib/picasa" recursive="false" />
+  </library>
+</component>
