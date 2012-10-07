@@ -24,8 +24,8 @@ public class CollectionsController {
 
     @RequestMapping(value = "/collections/ladies.htm", method = RequestMethod.GET)
     public void ladies(HttpServletRequest request, ModelMap modelMap) {
-        PicasaProvider provider = new PicasaProvider(USERNAME, PASSWORD);
-        modelMap.put("picasaPhotoEntries", provider.getAlbumPhotoEntryList("5648133367209219073"));
+//        PicasaProvider provider = new PicasaProvider(USERNAME, PASSWORD);
+//        modelMap.put("picasaPhotoEntries", provider.getAlbumPhotoEntryList("5648133367209219073"));
     }
 
     @RequestMapping(value = "/collections/handbags.htm", method = RequestMethod.GET)
