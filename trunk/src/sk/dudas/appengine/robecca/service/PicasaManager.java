@@ -1,6 +1,7 @@
 package sk.dudas.appengine.robecca.service;
 
 import com.google.gdata.data.photos.PhotoEntry;
+import sk.dudas.appengine.robecca.service.cache.PhotoDto;
 
 import java.util.List;
 
@@ -13,5 +14,5 @@ import java.util.List;
  */
 public interface PicasaManager {
 
-    List<PhotoEntry> getAlbumPhotoEntryList();
+    List<PhotoDto> getAlbumPhotoEntryList();
 }

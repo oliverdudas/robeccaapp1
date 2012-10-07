@@ -2,15 +2,9 @@
   <library name="AppEngine API">
     <CLASSES>
       <root url="file://$PROJECT_DIR$/../../sdk/appengine-java-sdk-1.4.2/lib/user" />
-      <root url="file://$PROJECT_DIR$/../../sdk/appengine-java-sdk-1.4.2/lib/user/orm" />
-      <root url="file://$PROJECT_DIR$/../../sdk/appengine-java-sdk-1.4.2/lib/testing" />
-      <root url="file://$PROJECT_DIR$/../../sdk/appengine-java-sdk-1.4.2/lib/tools/orm" />
     </CLASSES>
     <JAVADOC />
     <SOURCES />
-    <jarDirectory url="file://$PROJECT_DIR$/../../sdk/appengine-java-sdk-1.4.2/lib/testing" recursive="false" />
-    <jarDirectory url="file://$PROJECT_DIR$/../../sdk/appengine-java-sdk-1.4.2/lib/tools/orm" recursive="false" />
     <jarDirectory url="file://$PROJECT_DIR$/../../sdk/appengine-java-sdk-1.4.2/lib/user" recursive="false" />
-    <jarDirectory url="file://$PROJECT_DIR$/../../sdk/appengine-java-sdk-1.4.2/lib/user/orm" recursive="false" />
   </library>
 </component>
