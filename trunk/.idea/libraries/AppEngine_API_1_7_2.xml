@@ -1,0 +1,12 @@
+<component name="libraryTable">
+  <library name="AppEngine API 1.7.2">
+    <CLASSES>
+      <root url="file://$PROJECT_DIR$/../../sdk/appengine-java-sdk-1.7.2.1/lib/user" />
+      <root url="file://$PROJECT_DIR$/../../sdk/appengine-java-sdk-1.7.2.1/lib/user/orm" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+    <jarDirectory url="file://$PROJECT_DIR$/../../sdk/appengine-java-sdk-1.7.2.1/lib/user" recursive="false" />
+    <jarDirectory url="file://$PROJECT_DIR$/../../sdk/appengine-java-sdk-1.7.2.1/lib/user/orm" recursive="false" />
+  </library>
+</component>
