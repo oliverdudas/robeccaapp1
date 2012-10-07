@@ -4,6 +4,7 @@
 
         // These options will be used as defaults
         options: {
+            type: 'gallery', //gallery, cover, slider
             picasaUserId: "106685618427620984651",
             picasaAlbumId: "5667859215738016225",
             bigThumbSize: 512,
@@ -67,16 +68,59 @@
 
             self._trigger('start');
 
-            self._requestAlbumSize();
+            if (self.options.type === 'gallery') {
+                self._requestAlbumSize();
+            } else if (self.options.type === 'cover') {
+                self._requestAlbum();
+            }
 
         },
 
         _bindEvents: function() {
             var self = this;
 
-            self.options.albumSizeSuccess = function(e, albumSize) {
-                self._requestAlbumPhotos();
-            };
+            if (self.options.type === 'gallery') {
+                self.options.albumSizeSuccess = function(e, albumSize) {
+                    self._requestAlbumPhotos();
+                };
+            }
+
+        },
+
+        _requestAlbum: function() {
+            var self = this;
+
+            $.ajax({
+                type: 'GET',
+                cache: false,
+                url: self._albumsURI(),
+                success : function(data, textStatus, jqXHR) {
+
+                    $.each(data.feed.entry, function(entryIndex, item) {
+
+                        var album_ID = item.gphoto$id.$t;
+
+                        if (album_ID == self.options.picasaAlbumId) {
+                            var thumbnail = item.media$group.media$thumbnail;
+                            var album_thumb_URL = thumbnail[0].url;
+                            var img = $('<img style="width: 330px;height:500px;display:none;">');
+                            self.element.append(img);
+                            img.attr('src', album_thumb_URL);
+                            img.fadeIn(1000);
+
+                            return false;
+                        }
+
+                    });
+
+                },
+                error : function(jqXHR, textStatus, errorThrown) {
+                    alert(errorThrown);
+                },
+                dataType: 'json',
+                async: true
+
+            });
         },
 
         _requestAlbumSize: function() {

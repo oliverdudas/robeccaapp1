@@ -8,7 +8,7 @@
           <element id="module-output" name="robeccaapp1" />
         </element>
         <element id="directory" name="lib">
-          <element id="library" level="project" name="AppEngine API" />
+          <element id="library" level="project" name="AppEngine API 1.7.2" />
           <element id="library" level="project" name="AppEngine lib" />
           <element id="library" level="project" name="lib" />
           <element id="library" level="project" name="Picasa lib" />

@@ -23,4 +23,9 @@
     -->
     <context:annotation-config/>
 
+    <!--<bean id="memcacheServiceUser" class="com.google.appengine.api.memcache.MemcacheServiceFactory"-->
+          <!--factory-method="getMemcacheService">-->
+        <!--<constructor-arg value="UserCache"/>-->
+    <!--</bean>-->
+
 </beans>

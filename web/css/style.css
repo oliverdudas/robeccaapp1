@@ -190,6 +190,7 @@ a.galleryA:hover img, a.galleryA:active img {
 }
 
 #album {
+    display: none;
 }
 
 .albumLoader {
