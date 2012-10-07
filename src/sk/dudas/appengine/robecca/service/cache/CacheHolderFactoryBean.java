@@ -13,8 +13,8 @@ import java.util.Map;
  * Simple wrapper to expose a Cache in the Spring context.
  */
 //@SuppressWarnings("unchecked")
-//@Qualifier("pictureCacheHolder")
-//@Component("pictureCacheHolder")
+@Qualifier("pictureCacheHolder")
+@Component("pictureCacheHolder")
 public class CacheHolderFactoryBean implements FactoryBean {
 
     Map cacheProperties = Collections.emptyMap();

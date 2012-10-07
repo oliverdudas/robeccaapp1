@@ -36,7 +36,7 @@ public class PicasaControllerTest extends BaseControllerTest {
 
     @Test
     public void testPhotoEntryList() throws Exception {
-        List<PhotoEntry> list = picasaManager.getAlbumPhotoEntryList();
-        System.out.println("SIZE: " + list.size());
+//        List<PhotoEntry> list = picasaManager.getAlbumPhotoEntryList();
+//        System.out.println("SIZE: " + list.size());
     }
 }

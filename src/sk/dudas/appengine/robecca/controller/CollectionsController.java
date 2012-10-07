@@ -1,11 +1,13 @@
 package sk.dudas.appengine.robecca.controller;
 
 import com.google.gdata.data.photos.AlbumEntry;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import sk.dudas.appengine.robecca.provider.PicasaProvider;
+import sk.dudas.appengine.robecca.service.PicasaManager;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -19,13 +21,13 @@ import javax.servlet.http.HttpServletRequest;
 
 @Controller("collectionsController")
 public class CollectionsController {
-    public static final String USERNAME = "k.drappanova@gmail.com";
-    public static final String PASSWORD = "gastonko";
+
+    @Autowired
+    private PicasaManager picasaManager;
 
     @RequestMapping(value = "/collections/ladies.htm", method = RequestMethod.GET)
     public void ladies(HttpServletRequest request, ModelMap modelMap) {
-//        PicasaProvider provider = new PicasaProvider(USERNAME, PASSWORD);
-//        modelMap.put("picasaPhotoEntries", provider.getAlbumPhotoEntryList("5648133367209219073"));
+        modelMap.put("picasaPhotoEntries", picasaManager.getAlbumPhotoEntryList());
     }
 
     @RequestMapping(value = "/collections/handbags.htm", method = RequestMethod.GET)
