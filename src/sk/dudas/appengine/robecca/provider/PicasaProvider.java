@@ -5,6 +5,7 @@ import com.google.gdata.data.MediaContent;
 import com.google.gdata.data.photos.*;
 import com.google.gdata.util.AuthenticationException;
 import com.google.gdata.util.ServiceException;
+import org.springframework.stereotype.Service;
 import sk.dudas.appengine.robecca.domain.ImgMax;
 
 import java.io.IOException;
@@ -131,13 +132,17 @@ public class PicasaProvider {
         return albumEntryList;
     }
 
+    public AlbumEntry getAlbumEntry(String albumId) {
+        return getAlbumEntry(albumId, "");
+    }
+
     /**
      * AlbumEntry
      *
      * @param albumId
      * @return
      */
-    public AlbumEntry getAlbumEntry(String albumId) {
+    public AlbumEntry getAlbumEntry(String albumId, String params) {
         if (albumEntryCacheList != null) {
             AlbumEntry cachedAlbumEntry = getCachedAlbumEntry(albumId);
             if (cachedAlbumEntry != null) {
@@ -145,7 +150,7 @@ public class PicasaProvider {
             }
         }
         try {
-            URL albumEntryUrl = new URL(DEFAULT_USER_ALBUM_ENTRY_URL + albumId);
+            URL albumEntryUrl = new URL(DEFAULT_USER_ALBUM_ENTRY_URL + albumId + params);
             AlbumEntry albumEntry = picasawebService.getEntry(albumEntryUrl, AlbumEntry.class);
             addAlbumEntryToCache(albumEntry);
             return albumEntry;

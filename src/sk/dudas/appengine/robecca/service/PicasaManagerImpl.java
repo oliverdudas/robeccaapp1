@@ -1,10 +1,12 @@
 package sk.dudas.appengine.robecca.service;
 
 import com.google.gdata.data.MediaContent;
+import com.google.gdata.data.photos.AlbumEntry;
 import com.google.gdata.data.photos.PhotoEntry;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
+import sk.dudas.appengine.robecca.domain.ImgMax;
 import sk.dudas.appengine.robecca.provider.PicasaProvider;
 import sk.dudas.appengine.robecca.service.cache.PhotoDto;
 import sk.dudas.appengine.robecca.service.cache.CacheHolder;
@@ -29,8 +31,17 @@ public class PicasaManagerImpl implements PicasaManager {
 
     private static final String USERNAME = "womans@womans.sk";
     private static final String PASSWORD = "womans852cs";
-    public static final String PHOTO_ENTRY_LIST = "photoEntryList";
+    public static final String LADIES_LIST = "ladiesList";
+    public static final String HANDBAGS_LIST = "handbagsList";
+    public static final String BAGGAGES_LIST = "baggagesList";
+    public static final String ACCESSORIES_LIST = "accessoriesList";
+    public static final String WELCOME_PICTURE_URL = "welcomePictureUrl";
     private static final int DEFAULT_EXPIRATION = 3600;
+    private static final String LADIES_ALBUM_ID = "5667859215738016225";
+    private static final String HANDBAGS_ALBUM_ID = "5667859766043741617";
+    private static final String BAGGAGES_ALBUM_ID = "5667860871635428049";
+    private static final String ACCESSORIES_ALBUM_ID = "5667860020300500193";
+    private static final String WELCOME_PICTURE_ALBUM_ID = "5667857531879411857";
 
     private Cache pictureCache;
 
@@ -46,23 +57,115 @@ public class PicasaManagerImpl implements PicasaManager {
         pictureCache.clear();
 
         logger.info("Filling caches.");
-        getAlbumPhotoEntryList();
+        getLadies();
+        getHandbags();
+        getAccessories();
+        getBaggages();
+        getWelcomePictureUrl();
     }
 
-    private List<PhotoEntry> getAlbumPhotoEntryList(PicasaProvider provider) {
-        return provider.getAlbumPhotoEntryList("5667859215738016225");
+//-------------------
+//    WELCOME PICTURE
+//-------------------
+    public String getWelcomePictureUrl(PicasaProvider provider) {
+        AlbumEntry albumEntry = provider.getAlbumEntry(WELCOME_PICTURE_ALBUM_ID, "?thumbsize=" + ImgMax.s512.getMaxSize());
+        return albumEntry.getMediaThumbnails().get(0).getUrl();
     }
 
-    public List<PhotoDto> getAlbumPhotoEntryList() {
-        List<PhotoDto> list = getObjectFromCache(PHOTO_ENTRY_LIST);
+    public String getWelcomePictureUrl() {
+        String picture = getObjectFromCache(WELCOME_PICTURE_URL);
+        if (picture == null) {
+            logger.info("Retrieving welcome picture from picasa.");
+            picture = getWelcomePictureUrl(new PicasaProvider(USERNAME, PASSWORD));
+            logger.info("Putting welcome picture to cache.");
+            putObjectToCache(WELCOME_PICTURE_URL, picture);
+            return picture;
+        } else {
+            logger.info("Returning welcome picture from cache.");
+            return picture;
+        }
+    }
+
+//----------
+//    LADIES
+//----------
+    private List<PhotoEntry> getLadies(PicasaProvider provider) {
+        return provider.getAlbumPhotoEntryList(LADIES_ALBUM_ID);
+    }
+
+    public List<PhotoDto> getLadies() {
+        List<PhotoDto> list = getObjectFromCache(LADIES_LIST);
         if (list == null) {
-            logger.info("Retrieving albumPhotoEntryList from picasa.");
-            list = convertPhotoEntryListToPhotoDtoList(getAlbumPhotoEntryList(new PicasaProvider(USERNAME, PASSWORD)));
-            logger.info("Putting albumPhotoEntryList to cache.");
-            putObjectToCache(PHOTO_ENTRY_LIST, list);
+            logger.info("Retrieving ladies from picasa.");
+            list = convertPhotoEntryListToPhotoDtoList(getLadies(new PicasaProvider(USERNAME, PASSWORD)));
+            logger.info("Putting ladies to cache.");
+            putObjectToCache(LADIES_LIST, list);
             return list;
         } else {
-            logger.info("Returning albumPhotoEntryList from cache.");
+            logger.info("Returning ladies from cache.");
+            return list;
+        }
+    }
+
+    //------------
+//    HANDBAGS
+//------------
+    private List<PhotoEntry> getHandbags(PicasaProvider provider) {
+        return provider.getAlbumPhotoEntryList(HANDBAGS_ALBUM_ID);
+    }
+
+    public List<PhotoDto> getHandbags() {
+        List<PhotoDto> list = getObjectFromCache(HANDBAGS_LIST);
+        if (list == null) {
+            logger.info("Retrieving handbags from picasa.");
+            list = convertPhotoEntryListToPhotoDtoList(getHandbags(new PicasaProvider(USERNAME, PASSWORD)));
+            logger.info("Putting handbags to cache.");
+            putObjectToCache(HANDBAGS_LIST, list);
+            return list;
+        } else {
+            logger.info("Returning handbags from cache.");
+            return list;
+        }
+    }
+
+    //------------
+//    BAGGAGES
+//------------
+    private List<PhotoEntry> getBaggages(PicasaProvider provider) {
+        return provider.getAlbumPhotoEntryList(BAGGAGES_ALBUM_ID);
+    }
+
+    public List<PhotoDto> getBaggages() {
+        List<PhotoDto> list = getObjectFromCache(BAGGAGES_LIST);
+        if (list == null) {
+            logger.info("Retrieving baggages from picasa.");
+            list = convertPhotoEntryListToPhotoDtoList(getBaggages(new PicasaProvider(USERNAME, PASSWORD)));
+            logger.info("Putting baggages to cache.");
+            putObjectToCache(BAGGAGES_LIST, list);
+            return list;
+        } else {
+            logger.info("Returning baggages from cache.");
+            return list;
+        }
+    }
+
+    //---------------
+//    ACCESSORIES
+//---------------
+    private List<PhotoEntry> getAccessories(PicasaProvider provider) {
+        return provider.getAlbumPhotoEntryList(ACCESSORIES_ALBUM_ID);
+    }
+
+    public List<PhotoDto> getAccessories() {
+        List<PhotoDto> list = getObjectFromCache(ACCESSORIES_LIST);
+        if (list == null) {
+            logger.info("Retrieving accessories from picasa.");
+            list = convertPhotoEntryListToPhotoDtoList(getAccessories(new PicasaProvider(USERNAME, PASSWORD)));
+            logger.info("Putting accessories to cache.");
+            putObjectToCache(ACCESSORIES_LIST, list);
+            return list;
+        } else {
+            logger.info("Returning accessories from cache.");
             return list;
         }
     }

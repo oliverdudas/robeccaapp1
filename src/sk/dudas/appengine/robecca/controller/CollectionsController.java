@@ -1,12 +1,10 @@
 package sk.dudas.appengine.robecca.controller;
 
-import com.google.gdata.data.photos.AlbumEntry;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import sk.dudas.appengine.robecca.provider.PicasaProvider;
 import sk.dudas.appengine.robecca.service.PicasaManager;
 
 import javax.servlet.http.HttpServletRequest;
@@ -22,23 +20,36 @@ import javax.servlet.http.HttpServletRequest;
 @Controller("collectionsController")
 public class CollectionsController {
 
+    private static final String COLLECTION_VIEW = "collections/collection";
+
     @Autowired
     private PicasaManager picasaManager;
 
     @RequestMapping(value = "/collections/ladies.htm", method = RequestMethod.GET)
-    public void ladies(HttpServletRequest request, ModelMap modelMap) {
-        modelMap.put("picasaPhotoEntries", picasaManager.getAlbumPhotoEntryList());
+    public String ladies(HttpServletRequest request, ModelMap modelMap) {
+        modelMap.put("dtos", picasaManager.getLadies());
+        modelMap.put("collectionTitleKey", "ladys.collection");
+        return COLLECTION_VIEW;
     }
 
     @RequestMapping(value = "/collections/handbags.htm", method = RequestMethod.GET)
-    public void handbags(HttpServletRequest request, ModelMap modelMap) {
+    public String handbags(HttpServletRequest request, ModelMap modelMap) {
+        modelMap.put("dtos", picasaManager.getHandbags());
+        modelMap.put("collectionTitleKey", "ladys.handbags");
+        return COLLECTION_VIEW;
     }
 
     @RequestMapping(value = "/collections/accessories.htm", method = RequestMethod.GET)
-    public void accessories(HttpServletRequest request, ModelMap modelMap) {
+    public String accessories(HttpServletRequest request, ModelMap modelMap) {
+        modelMap.put("dtos", picasaManager.getAccessories());
+        modelMap.put("collectionTitleKey", "ladys.accessories");
+        return COLLECTION_VIEW;
     }
 
     @RequestMapping(value = "/collections/baggages.htm", method = RequestMethod.GET)
-    public void baggages(HttpServletRequest request, ModelMap modelMap) {
+    public String baggages(HttpServletRequest request, ModelMap modelMap) {
+        modelMap.put("dtos", picasaManager.getBaggages());
+        modelMap.put("collectionTitleKey", "ladys.baggages");
+        return COLLECTION_VIEW;
     }
 }

@@ -13,7 +13,7 @@ public class InMemPicasaManagerImpl {
 
 	Map<String,List<PhotoEntry>> db = new HashMap<String,List<PhotoEntry>>();
 	
-//    public List<PhotoDto> getAlbumPhotoEntryList() {
-//        return db.get(PicasaManagerImpl.PHOTO_ENTRY_LIST);
+//    public List<PhotoDto> getLadies() {
+//        return db.get(PicasaManagerImpl.LADIES_LIST);
 //    }
 }
