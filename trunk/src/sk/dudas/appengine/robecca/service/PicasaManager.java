@@ -14,5 +14,13 @@ import java.util.List;
  */
 public interface PicasaManager {
 
-    List<PhotoDto> getAlbumPhotoEntryList();
+    List<PhotoDto> getLadies();
+
+    List<PhotoDto> getHandbags();
+
+    List<PhotoDto> getBaggages();
+
+    List<PhotoDto> getAccessories();
+
+    String getWelcomePictureUrl();
 }
