@@ -5,6 +5,14 @@
 <script type="text/javascript" src="/js/plugins/shadowbox/shadowbox.js"></script>
 <script type="text/javascript" src="/js/plugins/shadowbox/init.js"></script>
 
+<style type="text/css">
+    .photophrame {
+        width: 144px;
+        margin: 0 2px;
+        display: inline-block;
+    }
+</style>
+
 <script type="text/javascript">
     $(document).ready(function() {
 
@@ -34,7 +42,9 @@
 <%--@elvariable id="dtos" type="java.util.List<sk.dudas.appengine.robecca.service.cache.PhotoDto>"--%>
 <c:forEach items="${dtos}" var="photo">
     <%--@elvariable id="photo" type="sk.dudas.appengine.robecca.service.cache.PhotoDto"--%>
-    <a class="galleryA" href='${photo.contentUri}'>
-        <div class="src" style="display: none;">${photo.thumbUrl}</div>
-    </a>
+    <span class="photophrame">
+        <a class="galleryA" href='${photo.contentUri}'>
+            <div class="src" style="display: none;">${photo.thumbUrl}</div>
+        </a>
+    </span>
 </c:forEach>
