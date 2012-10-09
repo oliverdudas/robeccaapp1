@@ -142,7 +142,7 @@ public class PicasaManagerImpl implements PicasaManager {
     //    LADIES
     //----------
     private List<PhotoEntry> getLadies(PicasaProvider provider) {
-        return provider.getAlbumPhotoEntryList(LADIES_ALBUM_ID);
+        return provider.getAlbumPhotoEntryList(LADIES_ALBUM_ID, "?imgmax=" + ImgMax.s1024.getMaxSize());
     }
 
     public List<PhotoDto> getLadies() {
@@ -163,7 +163,7 @@ public class PicasaManagerImpl implements PicasaManager {
     //    HANDBAGS
     //------------
     private List<PhotoEntry> getHandbags(PicasaProvider provider) {
-        return provider.getAlbumPhotoEntryList(HANDBAGS_ALBUM_ID);
+        return provider.getAlbumPhotoEntryList(HANDBAGS_ALBUM_ID, "?imgmax=" + ImgMax.s1024.getMaxSize());
     }
 
     public List<PhotoDto> getHandbags() {
@@ -184,7 +184,7 @@ public class PicasaManagerImpl implements PicasaManager {
     //    BAGGAGES
     //------------
     private List<PhotoEntry> getBaggages(PicasaProvider provider) {
-        return provider.getAlbumPhotoEntryList(BAGGAGES_ALBUM_ID);
+        return provider.getAlbumPhotoEntryList(BAGGAGES_ALBUM_ID, "?imgmax=" + ImgMax.s1024.getMaxSize());
     }
 
     public List<PhotoDto> getBaggages() {
@@ -205,7 +205,7 @@ public class PicasaManagerImpl implements PicasaManager {
     //    ACCESSORIES
     //---------------
     private List<PhotoEntry> getAccessories(PicasaProvider provider) {
-        return provider.getAlbumPhotoEntryList(ACCESSORIES_ALBUM_ID);
+        return provider.getAlbumPhotoEntryList(ACCESSORIES_ALBUM_ID, "?imgmax=" + ImgMax.s1024.getMaxSize());
     }
 
     public List<PhotoDto> getAccessories() {

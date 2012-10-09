@@ -265,6 +265,10 @@ public class PicasaProvider {
      * @return
      */
     private AlbumFeed getAlbumFeed(String albumId) {
+        return getAlbumFeed(albumId, "");
+    }
+
+    private AlbumFeed getAlbumFeed(String albumId, String params) {
         if (albumFeedCacheList != null) {
             AlbumFeed cachedAlbumFeed = getCachedAlbumFeed(albumId);
             if (cachedAlbumFeed != null) {
@@ -272,7 +276,7 @@ public class PicasaProvider {
             }
         }
         try {
-            URL albumFeedUrl = new URL(DEFAULT_USER_ALBUM_FEED_URL + albumId);
+            URL albumFeedUrl = new URL(DEFAULT_USER_ALBUM_FEED_URL + albumId + params);
             AlbumFeed albumFeed = picasawebService.getFeed(albumFeedUrl, AlbumFeed.class);
             addAlbumFeedToCache(albumFeed);
             return albumFeed;
@@ -290,10 +294,15 @@ public class PicasaProvider {
      * @return
      */
     public List<PhotoEntry> getAlbumPhotoEntryList(String albumId) {
+        return getAlbumPhotoEntryList(albumId, "");
+    }
+
+
+    public List<PhotoEntry> getAlbumPhotoEntryList(String albumId, String params) {
 //        if (allPhotoEntryListCache != null) { todo: cachovanie dajak vymysliet
 //            return allPhotoEntryListCache;
 //        }
-        AlbumFeed albumFeed = getAlbumFeed(albumId);
+        AlbumFeed albumFeed = getAlbumFeed(albumId, params);
         List<PhotoEntry> photoEntryList = albumFeed.getPhotoEntries();
 //        this.allPhotoEntryListCache = photoEntryList;
         return photoEntryList;
