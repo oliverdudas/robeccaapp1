@@ -25,42 +25,57 @@
 
     <div class="slider">
         <div class="sliderContent">
-            <div class="item">
-                <a class="galleryA" href="javascript:alert('${msg}');">
-                    <img height="450"
-                         style="display: none;"
-                         src="https://lh3.googleusercontent.com/-kkQi8Z1rhB0/TmIzX0rduvI/AAAAAAAAADI/jBJ4xxYPCbc/s720/Eva%252520v%2525C5%2525A1etko%252520019.jpg"
-                         alt=""/>
-                </a>
-            </div>
-            <div class="item">
-                <a href="javascript:alert('${msg}');">
-                    <img height="450"
-                         src="https://lh6.googleusercontent.com/-ySTtqCcE67s/TmIz2t-9HAI/AAAAAAAAADs/sShqyHiRK80/s720/Eva%252520v%2525C5%2525A1etko%252520070.jpg"
-                         alt=""/>
-                </a>
-            </div>
-            <div class="item">
-                <a href="javascript:alert('${msg}');">
-                    <img height="450"
-                         src="https://lh3.googleusercontent.com/-S31zx_fPJNA/TmI1JnrygLI/AAAAAAAAAFw/KsMVmLY0qyY/s720/Eva%252520v%2525C5%2525A1etko%252520152.jpg"
-                         alt=""/>
-                </a>
-            </div>
-            <div class="item">
-                <a href="javascript:alert('${msg}');">
-                    <img height="450"
-                         src="https://lh4.googleusercontent.com/-xuAhqtRRGpI/TmI2KkdTeEI/AAAAAAAAAHk/aw3jzDApFms/s720/Eva%252520v%2525C5%2525A1etko%252520250.jpg"
-                         alt=""/>
-                </a>
-            </div>
-            <div class="item">
-                <a href="javascript:alert('${msg}');">
-                    <img height="450"
-                         src="https://lh3.googleusercontent.com/-S31zx_fPJNA/TmI1JnrygLI/AAAAAAAAAFw/KsMVmLY0qyY/s720/Eva%252520v%2525C5%2525A1etko%252520152.jpg"
-                         alt=""/>
-                </a>
-            </div>
+
+            <%--@elvariable id="collectionsPictureUrls" type="java.util.List<sk.dudas.appengine.robecca.service.cache.PhotoDto>"--%>
+            <c:forEach items="${collectionsPictureUrls}" var="item" varStatus="status">
+                <div class="item">
+                    <a
+                            <c:if test="${status.index == 0}">class="galleryA"</c:if>
+                            href="javascript:alert('${msg}');">
+                        <img height="450"
+                             <c:if test="${status.index == 0}">style="display: none;"</c:if>
+                             src="${item.contentUri}"
+                             alt=""/>
+                    </a>
+                </div>
+            </c:forEach>
+
+            <%--<div class="item">--%>
+            <%--<a class="galleryA" href="javascript:alert('${msg}');">--%>
+            <%--<img height="450"--%>
+            <%--style="display: none;"--%>
+            <%--src="https://lh3.googleusercontent.com/-kkQi8Z1rhB0/TmIzX0rduvI/AAAAAAAAADI/jBJ4xxYPCbc/s720/Eva%252520v%2525C5%2525A1etko%252520019.jpg"--%>
+            <%--alt=""/>--%>
+            <%--</a>--%>
+            <%--</div>--%>
+            <%--<div class="item">--%>
+            <%--<a href="javascript:alert('${msg}');">--%>
+            <%--<img height="450"--%>
+            <%--src="https://lh6.googleusercontent.com/-ySTtqCcE67s/TmIz2t-9HAI/AAAAAAAAADs/sShqyHiRK80/s720/Eva%252520v%2525C5%2525A1etko%252520070.jpg"--%>
+            <%--alt=""/>--%>
+            <%--</a>--%>
+            <%--</div>--%>
+            <%--<div class="item">--%>
+            <%--<a href="javascript:alert('${msg}');">--%>
+            <%--<img height="450"--%>
+            <%--src="https://lh3.googleusercontent.com/-S31zx_fPJNA/TmI1JnrygLI/AAAAAAAAAFw/KsMVmLY0qyY/s720/Eva%252520v%2525C5%2525A1etko%252520152.jpg"--%>
+            <%--alt=""/>--%>
+            <%--</a>--%>
+            <%--</div>--%>
+            <%--<div class="item">--%>
+            <%--<a href="javascript:alert('${msg}');">--%>
+            <%--<img height="450"--%>
+            <%--src="https://lh4.googleusercontent.com/-xuAhqtRRGpI/TmI2KkdTeEI/AAAAAAAAAHk/aw3jzDApFms/s720/Eva%252520v%2525C5%2525A1etko%252520250.jpg"--%>
+            <%--alt=""/>--%>
+            <%--</a>--%>
+            <%--</div>--%>
+            <%--<div class="item">--%>
+            <%--<a href="javascript:alert('${msg}');">--%>
+            <%--<img height="450"--%>
+            <%--src="https://lh3.googleusercontent.com/-S31zx_fPJNA/TmI1JnrygLI/AAAAAAAAAFw/KsMVmLY0qyY/s720/Eva%252520v%2525C5%2525A1etko%252520152.jpg"--%>
+            <%--alt=""/>--%>
+            <%--</a>--%>
+            <%--</div>--%>
         </div>
     </div>
 
