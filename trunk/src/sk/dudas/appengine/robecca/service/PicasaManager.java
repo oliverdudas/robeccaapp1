@@ -23,4 +23,10 @@ public interface PicasaManager {
     List<PhotoDto> getAccessories();
 
     String getWelcomePictureUrl();
+
+    void reset();
+
+    List<PhotoDto> getHomePictureUrls();
+
+    List<PhotoDto> getCollectionsPictureUrls();
 }

@@ -24,7 +24,8 @@ public class HomeController {
     private PicasaManager picasaManager;
 
     @RequestMapping(value = "/home.htm", method = RequestMethod.GET)
-    public void home(HttpServletRequest request) {
+    public void home(ModelMap modelMap, HttpServletRequest request) {
+        modelMap.put("homePictureUrls", picasaManager.getHomePictureUrls());
     }
 
     @RequestMapping(value = "/welcome.htm", method = RequestMethod.GET)
@@ -33,7 +34,8 @@ public class HomeController {
     }
 
     @RequestMapping(value = "/collections/collections.htm", method = RequestMethod.GET)
-    public void collections(HttpServletRequest request) {
+    public void collections(ModelMap modelMap, HttpServletRequest request) {
+        modelMap.put("collectionsPictureUrls", picasaManager.getCollectionsPictureUrls());
     }
 
     @RequestMapping(value = "/shops.htm", method = RequestMethod.GET)
@@ -46,5 +48,11 @@ public class HomeController {
 
     @RequestMapping(value = "/test.htm", method = RequestMethod.GET)
     public void test(HttpServletRequest request) {
+    }
+
+    @RequestMapping(value = "/reset.htm", method = RequestMethod.GET)
+    public String reset(HttpServletRequest request) {
+        picasaManager.reset();
+        return "redirect:/home.htm";
     }
 }
