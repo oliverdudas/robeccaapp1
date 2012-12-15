@@ -5,15 +5,15 @@ import sk.dudas.appengine.robecca.service.PicasaManager;
 import sk.dudas.appengine.robecca.service.PicasaManagerImpl;
 import sk.dudas.appengine.robecca.service.cache.PhotoDto;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 public class InMemPicasaManagerImpl {
 
-	Map<String,List<PhotoEntry>> db = new HashMap<String,List<PhotoEntry>>();
+	Map<String,List<PhotoDto>> db = new HashMap<String,List<PhotoDto>>();
 	
-//    public List<PhotoDto> getLadies() {
-//        return db.get(PicasaManagerImpl.LADIES_LIST);
-//    }
+//    Map<Long,Picture> db = new HashMap<Long, Picture>();
+
 }
