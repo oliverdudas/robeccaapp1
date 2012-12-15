@@ -1,3 +1,5 @@
+<%@ page import="com.google.appengine.api.users.UserServiceFactory" %>
+<%@ page import="com.google.appengine.api.users.UserService" %>
 <%@ include file="includes.jsp" %>
 <%--mobilityslider--%>
 <link href="/js/plugins/mobilityslider/css/mobilityslider.css" rel="stylesheet" type="text/css"/>

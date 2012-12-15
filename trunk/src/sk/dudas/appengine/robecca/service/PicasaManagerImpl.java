@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 import sk.dudas.appengine.robecca.domain.ImgMax;
+import sk.dudas.appengine.robecca.domain.RunReset;
 import sk.dudas.appengine.robecca.provider.PicasaProvider;
 import sk.dudas.appengine.robecca.service.cache.CacheHolder;
 import sk.dudas.appengine.robecca.service.cache.PhotoDto;
@@ -50,6 +51,9 @@ public class PicasaManagerImpl implements PicasaManager {
     private Cache pictureCache;
 
     @Autowired
+    private RunReset runReset;
+
+    @Autowired
     public PicasaManagerImpl(@Qualifier("pictureCacheHolder") CacheHolder pictureCacheHolder) {
         this.pictureCache = pictureCacheHolder.getCache();
     }
@@ -61,17 +65,19 @@ public class PicasaManagerImpl implements PicasaManager {
     }
 
     public void reset() {
-        logger.info("Clearing pictureCache.");
-        pictureCache.clear();
+        if (runReset.isRun()) {
+            logger.info("Clearing pictureCache.");
+            pictureCache.clear();
 
-        logger.info("Filling caches.");
-        getLadies();
-        getHandbags();
-        getAccessories();
-        getBaggages();
-        getWelcomePictureUrl();
-        getHomePictureUrls();
-        getCollectionsPictureUrls();
+            logger.info("Filling caches.");
+            getLadies();
+            getHandbags();
+            getAccessories();
+            getBaggages();
+            getWelcomePictureUrl();
+            getHomePictureUrls();
+            getCollectionsPictureUrls();
+        }
     }
 
     //-------------------

@@ -13,6 +13,6 @@ import org.springframework.test.context.transaction.TransactionConfiguration;
  */
 //@TransactionConfiguration(transactionManager="transactionManager", defaultRollback = true)
 //@Transactional
-//@ContextConfiguration("classpath*:applicationContext-test.xml")
+@ContextConfiguration("classpath*:applicationContext-test.xml")
 public abstract class BaseTest extends AbstractJUnit4SpringContextTests {
 }

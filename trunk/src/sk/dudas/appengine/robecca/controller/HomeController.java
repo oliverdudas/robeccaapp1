@@ -46,10 +46,6 @@ public class HomeController {
     public void where(HttpServletRequest request) {
     }
 
-    @RequestMapping(value = "/test.htm", method = RequestMethod.GET)
-    public void test(HttpServletRequest request) {
-    }
-
     @RequestMapping(value = "/reset.htm", method = RequestMethod.GET)
     public String reset(HttpServletRequest request) {
         picasaManager.reset();
