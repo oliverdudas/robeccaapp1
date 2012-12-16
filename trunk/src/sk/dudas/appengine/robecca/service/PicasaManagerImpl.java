@@ -6,11 +6,13 @@ import com.google.gdata.data.photos.PhotoEntry;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
+import sk.dudas.appengine.robecca.domain.Album;
 import sk.dudas.appengine.robecca.domain.ImgMax;
 import sk.dudas.appengine.robecca.domain.RunReset;
 import sk.dudas.appengine.robecca.provider.PicasaProvider;
 import sk.dudas.appengine.robecca.service.cache.CacheHolder;
 import sk.dudas.appengine.robecca.service.cache.PhotoDto;
+import sk.dudas.appengine.robecca.service.cache.WebAlbumDto;
 
 import javax.annotation.PostConstruct;
 import javax.cache.Cache;
@@ -32,6 +34,7 @@ public class PicasaManagerImpl implements PicasaManager {
 
     private static final String USERNAME = "womans@womans.sk";
     private static final String PASSWORD = "womans852cs";
+    public static final String WEB_ALBUM = "webAlbum";
     public static final String LADIES_LIST = "ladiesList";
     public static final String HANDBAGS_LIST = "handbagsList";
     public static final String BAGGAGES_LIST = "baggagesList";
@@ -77,6 +80,27 @@ public class PicasaManagerImpl implements PicasaManager {
             getWelcomePictureUrl();
             getHomePictureUrls();
             getCollectionsPictureUrls();
+        }
+    }
+
+    //-------------------
+    //    WEB ALBUM
+    //-------------------
+    public List<AlbumEntry> getAlbumEntryList(PicasaProvider provider) {
+        return provider.getAllAlbumEntryList();
+    }
+
+    public WebAlbumDto getWebAlbumDto() {
+        WebAlbumDto webAlbumDto = getObjectFromCache(WEB_ALBUM);
+        if (webAlbumDto == null) {
+            logger.info("Retrieving list of albums from picasa.");
+            webAlbumDto = convertAlbumEntryListToWebAlbum(getAlbumEntryList(new PicasaProvider(USERNAME, PASSWORD)));
+            logger.info("Putting list of albums to cache.");
+            putObjectToCache(WEB_ALBUM, webAlbumDto);
+            return webAlbumDto;
+        } else {
+            logger.info("Returning list of albums from cache.");
+            return webAlbumDto;
         }
     }
 
@@ -234,6 +258,14 @@ public class PicasaManagerImpl implements PicasaManager {
             dtoList.add(new PhotoDto(((MediaContent) photoEntry.getContent()).getUri(), photoEntry.getMediaThumbnails().get(1).getUrl()));
         }
         return dtoList;
+    }
+
+    private WebAlbumDto convertAlbumEntryListToWebAlbum(List<AlbumEntry> albumEntryList) {
+        List<Album> albums = new ArrayList<Album>();
+        for (AlbumEntry albumEntry : albumEntryList) {
+            albums.add(new Album(albumEntry.getGphotoId(), albumEntry.getTitle().getPlainText()));
+        }
+        return new WebAlbumDto(albums);
     }
 
     private <C> void putObjectToCache(String key, C value) {

@@ -4,10 +4,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.bind.support.SessionStatus;
+import sk.dudas.appengine.robecca.domain.Album;
 import sk.dudas.appengine.robecca.domain.MenuLabel;
+import sk.dudas.appengine.robecca.service.PicasaManager;
 import sk.dudas.appengine.robecca.service.SettingsManager;
+import sk.dudas.appengine.robecca.service.cache.WebAlbumDto;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
@@ -26,10 +30,23 @@ public class SettingsController {
 
     @Autowired
     private SettingsManager settingsManager;
+    @Autowired
+    private PicasaManager picasaManager;
+
+    @InitBinder(value = "command")
+    public void initBinder(WebDataBinder binder) {
+//        binder.registerCustomEditor(String.class, "password", new CustomUserPasswordBinder());
+        binder.registerCustomEditor(Album.class, new CustomAlbumBinder());
+    }
 
     @ModelAttribute(value = "labels")
     public List<MenuLabel> getMenulabels() {
         return settingsManager.getMenuLabels();
+    }
+
+    @ModelAttribute(value = "webAlbum")
+    public WebAlbumDto getWebAlbum() {
+        return picasaManager.getWebAlbumDto();
     }
 
     @RequestMapping(value = "/admin/setting.htm", method = RequestMethod.GET)
@@ -51,6 +68,8 @@ public class SettingsController {
             sessionStatus.setComplete();
             return "redirect:/admin/setting.htm";
         } else {
+            int size = getMenulabels().size();
+            request.setAttribute("labelsSize", size);
             request.setAttribute("labelsSizeItems", createLabelSizeItems(menuLabel.isNew()));
             request.setAttribute("hasErrors", true);
             return "admin/setting";

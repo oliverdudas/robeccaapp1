@@ -20,23 +20,28 @@ public class MenuLabel implements Serializable {
     private static final String DEFAULT = "default";
     private static final String PROPERTY_NAME = "name";
     private static final String PROPERTY_ORDER = "order";
+    private static final String PROPERTY_ALBUM_ID = "albumId";
+    private static final String PROPERTY_ALBUM_TITLE= "albumTitle";
 
     private Long id;
     private String name;
     private Long order;
+    private Album album;
 
     public MenuLabel() {
     }
 
-    public MenuLabel(String name, Long order) {
+    public MenuLabel(String name, Long order, Album album) {
         this.name = name;
         this.order = order;
+        this.album = album;
     }
 
-    public MenuLabel(Long id, String name, Long order) {
+    public MenuLabel(Long id, String name, Long order, Album album) {
         this.id = id;
         this.name = name;
         this.order = order;
+        this.album = album;
     }
 
     public static Key ancestorKey() {
@@ -51,6 +56,8 @@ public class MenuLabel implements Serializable {
         Entity entity = new Entity(key);
         entity.setProperty(PROPERTY_NAME, this.name);
         entity.setProperty(PROPERTY_ORDER, this.order);
+        entity.setProperty(PROPERTY_ALBUM_ID, this.album != null ? this.album.getId() : null);
+        entity.setProperty(PROPERTY_ALBUM_TITLE, this.album != null ? this.album.getTitle() : null);
         return entity;
     }
 
@@ -70,8 +77,21 @@ public class MenuLabel implements Serializable {
         return new MenuLabel(
                 entity.getKey().getId(),
                 (String) entity.getProperty(PROPERTY_NAME),
-                (Long) entity.getProperty(PROPERTY_ORDER)
+                (Long) entity.getProperty(PROPERTY_ORDER),
+                toAlbum(entity)
         );
+    }
+
+    private static Album toAlbum(Entity entity) {
+        Object propertyId = entity.getProperty(PROPERTY_ALBUM_ID);
+        Object propertyTitle = entity.getProperty(PROPERTY_ALBUM_TITLE);
+        String albumId = propertyId != null ? (String) propertyId : null;
+        String albumTitle = propertyTitle != null ? (String) propertyTitle : null;
+        if (albumId != null || albumTitle != null) {
+            return new Album(albumId, albumTitle);
+        } else {
+            return null;
+        }
     }
 
     public static String getKind() {
@@ -106,12 +126,21 @@ public class MenuLabel implements Serializable {
         this.id = id;
     }
 
+    public Album getAlbum() {
+        return album;
+    }
+
+    public void setAlbum(Album album) {
+        this.album = album;
+    }
+
     @Override
     public String toString() {
         return "MenuLabel{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
                 ", order=" + order +
+                ", album=" + album +
                 '}';
     }
 }
