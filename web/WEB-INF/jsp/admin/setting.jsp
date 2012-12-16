@@ -24,6 +24,8 @@
 
             $("#dialog").find('.inputId').val('');
             $("#dialog").find('.inputName').val('');
+            $("#dialog").find('.inputAlbum').val('');
+            $(".error").html('');
 
             var labelsSize = parseInt('${labelsSize}');
             populateOrderSelect(labelsSize, labelsSize + 1);
@@ -42,10 +44,13 @@
             var labelId = labelRow.find('.labelId').html();
             var labelName = labelRow.find('.labelName').html();
             var labelOrder = labelRow.find('.labelOrder').html();
+            var labelIdAndTitle = labelRow.find('.labelIdAndTitle').html();
 
             $("#dialog").find('.inputId').val(labelId);
             $("#dialog").find('.inputName').val(labelName);
             $("#dialog").find('.inputOrder').val(labelOrder);
+            $("#dialog").find('.inputAlbum').val(labelIdAndTitle);
+            $(".error").html('');
 
             var labelsSize = parseInt('${labelsSize}');
             populateOrderSelect(labelsSize - 1, parseInt(labelOrder));
@@ -131,8 +136,10 @@
         <thead>
         <tr>
             <th style="display: none;">id</th>
+            <th style="display: none;">albumId</th>
             <th><fmt:message key="title"/></th>
             <th><fmt:message key="order"/></th>
+            <th><fmt:message key="album"/></th>
             <th colspan="2"/>
         </tr>
         </thead>
@@ -141,8 +148,10 @@
         <c:forEach items="${labels}" var="label">
             <tr class="labelRow">
                 <td class="labelId" style="display: none;">${label.id}</td>
+                <td class="labelIdAndTitle" style="display: none;">${label.album.idAndTitle}</td>
                 <td class="labelName">${label.name}</td>
                 <td class="labelOrder">${label.order}</td>
+                <td class="labelAlbum">${label.album.title}</td>
                 <td><input type="button" value="<fmt:message key="edit"/>" class="edit"></td>
                 <td><input type="button" value="<fmt:message key="delete"/>" class="delete"></td>
             </tr>

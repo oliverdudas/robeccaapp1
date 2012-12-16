@@ -32,14 +32,13 @@ public class PicasaControllerTest extends BaseControllerTest {
     public void testPicasa() throws ServiceException, IOException {
 //        PicasawebService picasawebService = PicasawebServiceUtil.getPicasawebService("picasService", USERNAME, PASSWORD);
         PicasaProvider provider = new PicasaProvider(USERNAME, PASSWORD);
-        AlbumEntry albumEntry = provider.getAlbumEntry(WELCOME_PICTURE_ALBUM_ID, "?thumbsize=" + ImgMax.s512.getMaxSize());
+        List<AlbumEntry> allAlbumEntryList = provider.getAllAlbumEntryList();
 
-        System.out.println(albumEntry.getMediaThumbnails().get(0).getUrl());
+        System.out.println(allAlbumEntryList.size());
     }
 
     @Test
-    public void testPhotoEntryList() throws Exception {
-//        List<PhotoEntry> list = picasaManager.getLadies();
-//        System.out.println("SIZE: " + list.size());
+    public void testTest() throws Exception {
+
     }
 }

@@ -9,6 +9,7 @@ import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.annotation.Rollback;
 import sk.dudas.appengine.robecca.BaseTest;
+import sk.dudas.appengine.robecca.domain.Album;
 import sk.dudas.appengine.robecca.domain.MenuLabel;
 
 import java.util.List;
@@ -47,18 +48,18 @@ public class TestSettingsManagerImpl extends BaseTest {
     @Test
     @Rollback(value = true)
     public void testName() throws Exception {
-        MenuLabel damskaKonfekcia = new MenuLabel("DÁMSKA KONFEKCIA", (long) 1);
+        MenuLabel damskaKonfekcia = new MenuLabel("DÁMSKA KONFEKCIA", (long) 1, new Album("111111", "Album damska konfekcia"));
         settingsManager.createMenuLabel(damskaKonfekcia);
-        MenuLabel kabelky = new MenuLabel("KABELKY", (long) 2);
+        MenuLabel kabelky = new MenuLabel("KABELKY", (long) 2, new Album("222222", "Album kabelky"));
         settingsManager.createMenuLabel(kabelky);
-        MenuLabel doplnky = new MenuLabel("DOPLNKY", (long) 3);
+        MenuLabel doplnky = new MenuLabel("DOPLNKY", (long) 3, new Album("333333", null));
         settingsManager.createMenuLabel(doplnky);
-        MenuLabel cestovneKufre = new MenuLabel("CESTOVNÉ KUFRE", (long) 3);
+        MenuLabel cestovneKufre = new MenuLabel("CESTOVNÉ KUFRE", (long) 3, null);
         settingsManager.createMenuLabel(cestovneKufre);
 
         settingsManager.deleteMenuLabel(doplnky);
         settingsManager.deleteMenuLabel(kabelky.getId());
-//
+
         damskaKonfekcia.setName("teeest");
         settingsManager.updateMenuLabel(damskaKonfekcia);
 

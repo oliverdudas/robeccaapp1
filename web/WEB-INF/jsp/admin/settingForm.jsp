@@ -16,6 +16,19 @@
                 <td class="error"><form:errors path="name"/></td>
             </tr>
             <tr>
+                <td><fmt:message key="album"/><span class="required">*</span>:</td>
+                <td>
+                    <%--@elvariable id="webAlbum" type="sk.dudas.appengine.robecca.service.cache.WebAlbumDto"--%>
+                    <form:select path="album" cssClass="inputAlbum" id="albumSelect">
+                        <form:option value=""></form:option>
+                        <c:forEach items="${webAlbum.albums}" var="album">
+                            <form:option value="${album.idAndTitle}">${album.title}</form:option>
+                        </c:forEach>
+                    </form:select>
+                </td>
+                <td class="error"><form:errors path="album"/></td>
+            </tr>
+            <tr>
                 <td><fmt:message key="order"/><span class="required">*</span>:</td>
                 <td>
                     <%--@elvariable id="labelsSizeItems" type="java.util.List<Long>"--%>

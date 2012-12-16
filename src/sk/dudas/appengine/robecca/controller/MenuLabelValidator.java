@@ -23,5 +23,6 @@ public class MenuLabelValidator implements Validator {
 
         ValidationUtils.rejectIfEmptyOrWhitespace(errors, "name", "required", "required");
         ValidationUtils.rejectIfEmptyOrWhitespace(errors, "order", "required", "required");
+        ValidationUtils.rejectIfEmptyOrWhitespace(errors, "album", "required", "required");
     }
 }

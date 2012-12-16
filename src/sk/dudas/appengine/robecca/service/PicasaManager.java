@@ -1,7 +1,9 @@
 package sk.dudas.appengine.robecca.service;
 
 import com.google.gdata.data.photos.PhotoEntry;
+import sk.dudas.appengine.robecca.provider.PicasaProvider;
 import sk.dudas.appengine.robecca.service.cache.PhotoDto;
+import sk.dudas.appengine.robecca.service.cache.WebAlbumDto;
 
 import java.util.List;
 
@@ -13,6 +15,8 @@ import java.util.List;
  * To change this template use File | Settings | File Templates.
  */
 public interface PicasaManager {
+
+    WebAlbumDto getWebAlbumDto();
 
     List<PhotoDto> getLadies();
 
