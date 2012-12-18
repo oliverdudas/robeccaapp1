@@ -1,4 +1,4 @@
-package sk.dudas.appengine.robecca.controller;
+package sk.dudas.appengine.robecca.controller.admin;
 
 import org.springframework.validation.Errors;
 import org.springframework.validation.ValidationUtils;

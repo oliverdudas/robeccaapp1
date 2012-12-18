@@ -1,4 +1,4 @@
-package sk.dudas.appengine.robecca.controller;
+package sk.dudas.appengine.robecca.controller.admin;
 
 import org.apache.commons.lang.StringUtils;
 import sk.dudas.appengine.robecca.domain.Album;

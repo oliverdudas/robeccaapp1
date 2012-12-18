@@ -83,7 +83,7 @@
                             var labelRow = $(instance).parent('td').parent('tr.labelRow');
                             var labelId = labelRow.find('.labelId').html();
 
-                            var url = '<c:url value="/admin/settingDelete.htm"/>';
+                            var url = '<c:url value="/admin/ponukaDelete.htm"/>';
                             window.location = url + '?id=' + labelId;
                         },
                         "<fmt:message key="cancel"/>":function () {
@@ -114,10 +114,11 @@
     });
 </script>
 
+
 <div id="dialog" title="Basic dialog" style="display: none;">
-    <jsp:include page="settingForm.jsp"/>
+    <jsp:include page="ponukaForm.jsp"/>
 </div>
-<div id="dialog-confirm" title="Empty the recycle bin?" style="display: none;text-align: center;">
+<div id="dialog-confirm" style="display: none;text-align: center;">
     <p>
         <span><fmt:message key="delete.confirm"/></span>
     </p>
@@ -128,35 +129,43 @@
 
 <div id="settingsWrapper">
 
-    <div style="text-align: left;margin: 5px;">
-        <input type="button" id="openDialog" value="<fmt:message key="add.new.record"/>">
-    </div>
+    <c:set var="selected" value="ponuka"/>
+    <%@ include file="../templates/admin/adminMenu.jsp" %>
 
-    <table id="menuLabelTable">
-        <thead>
-        <tr>
-            <th style="display: none;">id</th>
-            <th style="display: none;">albumId</th>
-            <th><fmt:message key="title"/></th>
-            <th><fmt:message key="order"/></th>
-            <th><fmt:message key="album"/></th>
-            <th colspan="2"/>
-        </tr>
-        </thead>
-        <tbody>
-        <%--@elvariable id="labels" type="java.util.List<sk.dudas.appengine.robecca.domain.MenuLabel>"--%>
-        <c:forEach items="${labels}" var="label">
-            <tr class="labelRow">
-                <td class="labelId" style="display: none;">${label.id}</td>
-                <td class="labelIdAndTitle" style="display: none;">${label.album.idAndTitle}</td>
-                <td class="labelName">${label.name}</td>
-                <td class="labelOrder">${label.order}</td>
-                <td class="labelAlbum">${label.album.title}</td>
-                <td><input type="button" value="<fmt:message key="edit"/>" class="edit"></td>
-                <td><input type="button" value="<fmt:message key="delete"/>" class="delete"></td>
+    <div id="settingContent">
+
+
+        <div style="text-align: left;margin: 5px 0;">
+            <input type="button" id="openDialog" value="<fmt:message key="add.new.record"/>">
+        </div>
+
+        <table id="menuLabelTable">
+            <thead>
+            <tr>
+                <th style="display: none;">id</th>
+                <th style="display: none;">albumId</th>
+                <th><fmt:message key="order"/></th>
+                <th><fmt:message key="title"/></th>
+                <th><fmt:message key="album"/></th>
+                <th colspan="2"/>
             </tr>
-        </c:forEach>
-        </tbody>
-    </table>
+            </thead>
+            <tbody>
+            <%--@elvariable id="labels" type="java.util.List<sk.dudas.appengine.robecca.domain.MenuLabel>"--%>
+            <c:forEach items="${labels}" var="label">
+                <tr class="labelRow">
+                    <td class="labelId" style="display: none;">${label.id}</td>
+                    <td class="labelIdAndTitle" style="display: none;">${label.album.idAndTitle}</td>
+                    <td class="labelOrder">${label.order}</td>
+                    <td class="labelName">${label.name}</td>
+                    <td class="labelAlbum">${label.album.title}</td>
+                    <td><input type="button" value="<fmt:message key="edit"/>" class="edit"></td>
+                    <td><input type="button" value="<fmt:message key="delete"/>" class="delete"></td>
+                </tr>
+            </c:forEach>
+            </tbody>
+        </table>
+
+    </div>
 
 </div>

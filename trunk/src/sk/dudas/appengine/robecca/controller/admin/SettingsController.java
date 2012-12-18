@@ -1,4 +1,4 @@
-package sk.dudas.appengine.robecca.controller;
+package sk.dudas.appengine.robecca.controller.admin;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -49,14 +49,14 @@ public class SettingsController {
         return picasaManager.getWebAlbumDto();
     }
 
-    @RequestMapping(value = "/admin/setting.htm", method = RequestMethod.GET)
+    @RequestMapping(value = "/admin/ponuka.htm", method = RequestMethod.GET)
     public void list(ModelMap modelMap) {
         modelMap.addAttribute("command", new MenuLabel());
         int size = getMenulabels().size();
         modelMap.addAttribute("labelsSize", size);
     }
 
-    @RequestMapping(value = "/admin/settingForm.htm", method = RequestMethod.POST)
+    @RequestMapping(value = "/admin/ponukaForm.htm", method = RequestMethod.POST)
     public String save(@ModelAttribute(value = "command") MenuLabel menuLabel,
                        BindingResult bindingResult,
                        SessionStatus sessionStatus,
@@ -65,14 +65,15 @@ public class SettingsController {
         new MenuLabelValidator().validate(menuLabel, bindingResult);
         if (!bindingResult.hasErrors()) {
             settingsManager.storeMenuLabel(menuLabel);
+            settingsManager.resetCaches(menuLabel.getAlbum().getId());
             sessionStatus.setComplete();
-            return "redirect:/admin/setting.htm";
+            return "redirect:/admin/ponuka.htm";
         } else {
             int size = getMenulabels().size();
             request.setAttribute("labelsSize", size);
             request.setAttribute("labelsSizeItems", createLabelSizeItems(menuLabel.isNew()));
             request.setAttribute("hasErrors", true);
-            return "admin/setting";
+            return "admin/ponuka";
         }
     }
 
@@ -85,10 +86,10 @@ public class SettingsController {
         return labelSizeItems;
     }
 
-    @RequestMapping(value = "/admin/settingDelete.htm", method = RequestMethod.GET)
+    @RequestMapping(value = "/admin/ponukaDelete.htm", method = RequestMethod.GET)
     public String delete(@RequestParam(value = "id") Long id) {
         settingsManager.deleteMenuLabel(id);
-        return "redirect:/admin/setting.htm";
+        return "redirect:/admin/ponuka.htm";
     }
 
 }

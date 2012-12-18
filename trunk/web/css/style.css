@@ -163,6 +163,7 @@ p {
 a.galleryA:link img, a.galleryA:visited img {
     border: none;
 }
+
 a.galleryA:hover img, a.galleryA:active img {
     border: none;
 }
@@ -228,4 +229,51 @@ a.galleryA:hover img, a.galleryA:active img {
     border: 2px solid #BFBFBF;
     border-radius: 5px 5px 5px 5px;
     padding: 5px;
+}
+
+#settingContent {
+    border: 2px solid #BFBFBF;
+    border-radius: 5px 5px 5px 5px;
+    padding: 20px;
+    margin: 5px 0;
+}
+
+#adminMenuWrapper {
+
+}
+
+#settingMenuWrapper {
+    height: 30px;
+}
+
+ul#settingMenu {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+}
+
+ul#settingMenu li {
+    float: left;
+}
+
+ul#settingMenu li a {
+    color: #FFF;
+    border: 2px solid #BFBFBF;
+    border-radius: 5px 5px 5px 5px;
+    padding: 0.5em;
+    text-decoration: none;
+}
+
+ul#settingMenu li a:hover, ul#settingMenu li a.selected {
+    background-color: #BFBFBF;
+    color: #000;
+}
+
+#settingMenuTitle h2 {
+    margin-top: 0;
+}
+
+
+input.ui-button {
+    padding: 0.2em 0.4em !important;
 }

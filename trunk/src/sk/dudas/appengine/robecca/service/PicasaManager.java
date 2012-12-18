@@ -1,7 +1,6 @@
 package sk.dudas.appengine.robecca.service;
 
-import com.google.gdata.data.photos.PhotoEntry;
-import sk.dudas.appengine.robecca.provider.PicasaProvider;
+import sk.dudas.appengine.robecca.domain.MenuLabel;
 import sk.dudas.appengine.robecca.service.cache.PhotoDto;
 import sk.dudas.appengine.robecca.service.cache.WebAlbumDto;
 
@@ -18,13 +17,13 @@ public interface PicasaManager {
 
     WebAlbumDto getWebAlbumDto();
 
-    List<PhotoDto> getLadies();
+    List<MenuLabel> getNasaPonukaLabels();
 
-    List<PhotoDto> getHandbags();
+    List<MenuLabel> resetNasaPonukaLabelsCache();
 
-    List<PhotoDto> getBaggages();
+    List<PhotoDto> getNasaPonukaMenuLabel(String albumId);
 
-    List<PhotoDto> getAccessories();
+    public List<PhotoDto> resetNasaPonukaAlbumPhotoDtoList(String albumId);
 
     String getWelcomePictureUrl();
 

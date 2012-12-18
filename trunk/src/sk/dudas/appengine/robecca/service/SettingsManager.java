@@ -24,6 +24,8 @@ public interface SettingsManager {
 
     List<MenuLabel> getMenuLabels();
 
+    public void resetCaches(String albumId);
+
     void deleteMenuLabel(MenuLabel menuLabel);
 
     void deleteMenuLabel(Key key);

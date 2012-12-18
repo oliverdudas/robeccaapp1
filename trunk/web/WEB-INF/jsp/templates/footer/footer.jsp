@@ -14,7 +14,7 @@
 
     <c:if test="${isUserAdmin}">
         <span>
-            <a href="<c:out value="/admin/setting.htm"/>"><fmt:message key="settings"/></a>
+            <a href="<c:out value="/admin/ponuka.htm"/>"><fmt:message key="settings"/></a>
         </span>
     </c:if>
 </div>

@@ -33,11 +33,6 @@ public class HomeController {
         modelMap.put("welcomePictureUrl", picasaManager.getWelcomePictureUrl());
     }
 
-    @RequestMapping(value = "/collections/collections.htm", method = RequestMethod.GET)
-    public void collections(ModelMap modelMap, HttpServletRequest request) {
-        modelMap.put("collectionsPictureUrls", picasaManager.getCollectionsPictureUrls());
-    }
-
     @RequestMapping(value = "/shops.htm", method = RequestMethod.GET)
     public void shops(HttpServletRequest request) {
     }

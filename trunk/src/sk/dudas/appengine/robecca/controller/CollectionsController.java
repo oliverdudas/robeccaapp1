@@ -3,11 +3,15 @@ package sk.dudas.appengine.robecca.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import sk.dudas.appengine.robecca.domain.MenuLabel;
 import sk.dudas.appengine.robecca.service.PicasaManager;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.List;
 
 /**
  * Created by IntelliJ IDEA.
@@ -25,31 +29,31 @@ public class CollectionsController {
     @Autowired
     private PicasaManager picasaManager;
 
-    @RequestMapping(value = "/collections/ladies.htm", method = RequestMethod.GET)
-    public String ladies(HttpServletRequest request, ModelMap modelMap) {
-        modelMap.put("dtos", picasaManager.getLadies());
-        modelMap.put("collectionTitleKey", "ladys.collection");
+    @RequestMapping(value = "/collections/collections.htm", method = RequestMethod.GET)
+    public void collections(ModelMap modelMap) {
+        modelMap.put("menuLabels", picasaManager.getNasaPonukaLabels());
+        modelMap.put("collectionsPictureUrls", picasaManager.getCollectionsPictureUrls());
+    }
+
+    @RequestMapping(value = "/collections/album.htm", method = RequestMethod.GET)
+    public String menuLabel(@RequestParam Long id,
+                            ModelMap modelMap) {
+        List<MenuLabel> menuLabels = picasaManager.getNasaPonukaLabels();
+        MenuLabel menuLabel = getMenuLabelById(id, menuLabels);
+        modelMap.put("menuLabels", menuLabels);
+        modelMap.put("dtos", picasaManager.getNasaPonukaMenuLabel(menuLabel.getAlbum().getId()));
+        modelMap.put("collectionTitleKey", menuLabel.getName());
         return COLLECTION_VIEW;
     }
 
-    @RequestMapping(value = "/collections/handbags.htm", method = RequestMethod.GET)
-    public String handbags(HttpServletRequest request, ModelMap modelMap) {
-        modelMap.put("dtos", picasaManager.getHandbags());
-        modelMap.put("collectionTitleKey", "ladys.handbags");
-        return COLLECTION_VIEW;
+    private MenuLabel getMenuLabelById(Long id, List<MenuLabel> menuLabels) {
+        for (MenuLabel menuLabel : menuLabels) {
+            if (menuLabel.getId().compareTo(id) == 0) {
+                return menuLabel;
+            }
+        }
+
+        throw new RuntimeException("No menu label exist with id: " + id + ". Try to reset the cache!");
     }
 
-    @RequestMapping(value = "/collections/accessories.htm", method = RequestMethod.GET)
-    public String accessories(HttpServletRequest request, ModelMap modelMap) {
-        modelMap.put("dtos", picasaManager.getAccessories());
-        modelMap.put("collectionTitleKey", "ladys.accessories");
-        return COLLECTION_VIEW;
-    }
-
-    @RequestMapping(value = "/collections/baggages.htm", method = RequestMethod.GET)
-    public String baggages(HttpServletRequest request, ModelMap modelMap) {
-        modelMap.put("dtos", picasaManager.getBaggages());
-        modelMap.put("collectionTitleKey", "ladys.baggages");
-        return COLLECTION_VIEW;
-    }
 }

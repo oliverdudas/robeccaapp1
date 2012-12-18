@@ -2,7 +2,7 @@
 
 <div id="settingsWrapper">
 
-    <form:form commandName="command" action="/admin/settingForm.htm">
+    <form:form commandName="command" action="/admin/ponukaForm.htm">
 
         <table style="width: 450px; height: 100px;">
             <tr style="display: none;">
