@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 import sk.dudas.appengine.robecca.domain.Album;
 import sk.dudas.appengine.robecca.domain.ImgMax;
+import sk.dudas.appengine.robecca.domain.MenuLabel;
 import sk.dudas.appengine.robecca.domain.RunReset;
 import sk.dudas.appengine.robecca.provider.PicasaProvider;
 import sk.dudas.appengine.robecca.service.cache.CacheHolder;
@@ -35,18 +36,19 @@ public class PicasaManagerImpl implements PicasaManager {
     private static final String USERNAME = "womans@womans.sk";
     private static final String PASSWORD = "womans852cs";
     public static final String WEB_ALBUM = "webAlbum";
-    public static final String LADIES_LIST = "ladiesList";
-    public static final String HANDBAGS_LIST = "handbagsList";
-    public static final String BAGGAGES_LIST = "baggagesList";
-    public static final String ACCESSORIES_LIST = "accessoriesList";
+    //    public static final String LADIES_LIST = "ladiesList";
+//    public static final String HANDBAGS_LIST = "handbagsList";
+//    public static final String BAGGAGES_LIST = "baggagesList";
+//    public static final String ACCESSORIES_LIST = "accessoriesList";
     public static final String WELCOME_PICTURE_URL = "welcomePictureUrl";
     public static final String HOME_PICTURE_URLS = "homePictureUrls";
     public static final String COLLECTIONS_PICTURE_URLS = "collectionsPictureUrls";
+    private static final String NASA_PONUKA_MENU_LABEL_LIST = "nasaPonukaMenuLabelList";
     private static final int DEFAULT_EXPIRATION = 3600;
-    private static final String LADIES_ALBUM_ID = "5667859215738016225";
-    private static final String HANDBAGS_ALBUM_ID = "5667859766043741617";
-    private static final String BAGGAGES_ALBUM_ID = "5667860871635428049";
-    private static final String ACCESSORIES_ALBUM_ID = "5667860020300500193";
+    //    private static final String LADIES_ALBUM_ID = "5667859215738016225";
+//    private static final String HANDBAGS_ALBUM_ID = "5667859766043741617";
+//    private static final String BAGGAGES_ALBUM_ID = "5667860871635428049";
+//    private static final String ACCESSORIES_ALBUM_ID = "5667860020300500193";
     private static final String WELCOME_PICTURE_ALBUM_ID = "5667857531879411857";
     private static final String HOME_PICTURES_ALBUM_ID = "5667856893510361217";
     private static final String COLLECTIONS_PICTURES_ALBUM_ID = "5667858842464374081";
@@ -55,6 +57,9 @@ public class PicasaManagerImpl implements PicasaManager {
 
     @Autowired
     private RunReset runReset;
+
+    @Autowired
+    private SettingsManager settingsManager;
 
     @Autowired
     public PicasaManagerImpl(@Qualifier("pictureCacheHolder") CacheHolder pictureCacheHolder) {
@@ -73,10 +78,10 @@ public class PicasaManagerImpl implements PicasaManager {
             pictureCache.clear();
 
             logger.info("Filling caches.");
-            getLadies();
-            getHandbags();
-            getAccessories();
-            getBaggages();
+//            getLadies();
+//            getHandbags();
+//            getAccessories();
+//            getBaggages();
             getWelcomePictureUrl();
             getHomePictureUrls();
             getCollectionsPictureUrls();
@@ -168,89 +173,57 @@ public class PicasaManagerImpl implements PicasaManager {
         }
     }
 
-    //----------
-    //    LADIES
-    //----------
-    private List<PhotoEntry> getLadies(PicasaProvider provider) {
-        return provider.getAlbumPhotoEntryList(LADIES_ALBUM_ID, "?imgmax=" + ImgMax.s1024.getMaxSize());
-    }
-
-    public List<PhotoDto> getLadies() {
-        List<PhotoDto> list = getObjectFromCache(LADIES_LIST);
+    //--------------------------------------
+    //    NASA PONUKA MENU LABEL COLLECTIONS
+    //--------------------------------------
+    public List<MenuLabel> getNasaPonukaLabels() {
+        List<MenuLabel> list = getObjectFromCache(NASA_PONUKA_MENU_LABEL_LIST);
         if (list == null) {
-            logger.info("Retrieving ladies from picasa.");
-            list = convertPhotoEntryListToPhotoDtoList(getLadies(new PicasaProvider(USERNAME, PASSWORD)));
-            logger.info("Putting ladies to cache.");
-            putObjectToCache(LADIES_LIST, list);
+            logger.info("Retrieving nasa ponuka menu labels from datastore.");
+            list = settingsManager.getMenuLabels();
+            logger.info("Putting nasa ponuka menu labels to cache.");
+            putObjectToCache(NASA_PONUKA_MENU_LABEL_LIST, list);
             return list;
         } else {
-            logger.info("Returning ladies from cache.");
+            logger.info("Returning nasa ponuka labels from cache.");
             return list;
         }
     }
 
-    //------------
-    //    HANDBAGS
-    //------------
-    private List<PhotoEntry> getHandbags(PicasaProvider provider) {
-        return provider.getAlbumPhotoEntryList(HANDBAGS_ALBUM_ID, "?imgmax=" + ImgMax.s1024.getMaxSize());
+    public List<MenuLabel> resetNasaPonukaLabelsCache() {
+        pictureCache.remove(NASA_PONUKA_MENU_LABEL_LIST);
+        return getNasaPonukaLabels();
     }
 
-    public List<PhotoDto> getHandbags() {
-        List<PhotoDto> list = getObjectFromCache(HANDBAGS_LIST);
+    //--------------------------
+    //    NASA PONUKA MENU LABEL
+    //--------------------------
+    private List<PhotoEntry> getNasaPonukaMenuLabel(PicasaProvider provider, String albumId) {
+        return provider.getAlbumPhotoEntryList(albumId, "?imgmax=" + ImgMax.s1024.getMaxSize());
+    }
+
+    public List<PhotoDto> getNasaPonukaMenuLabel(String albumId) {
+        List<PhotoDto> list = getObjectFromCache(albumId);
         if (list == null) {
-            logger.info("Retrieving handbags from picasa.");
-            list = convertPhotoEntryListToPhotoDtoList(getHandbags(new PicasaProvider(USERNAME, PASSWORD)));
-            logger.info("Putting handbags to cache.");
-            putObjectToCache(HANDBAGS_LIST, list);
+            logger.info("Retrieving ponuka menu label from picasa.");
+            list = convertPhotoEntryListToPhotoDtoList(getNasaPonukaMenuLabel(new PicasaProvider(USERNAME, PASSWORD), albumId));
+            logger.info("Putting ponuka menu label to cache.");
+            putObjectToCache(albumId, list);
             return list;
         } else {
-            logger.info("Returning handbags from cache.");
+            logger.info("Returning ponuka menu label from cache.");
             return list;
         }
     }
 
-    //------------
-    //    BAGGAGES
-    //------------
-    private List<PhotoEntry> getBaggages(PicasaProvider provider) {
-        return provider.getAlbumPhotoEntryList(BAGGAGES_ALBUM_ID, "?imgmax=" + ImgMax.s1024.getMaxSize());
+    public List<PhotoDto> resetNasaPonukaAlbumPhotoDtoList(String albumId) {
+        pictureCache.remove(albumId);
+        return getNasaPonukaMenuLabel(albumId);
     }
 
-    public List<PhotoDto> getBaggages() {
-        List<PhotoDto> list = getObjectFromCache(BAGGAGES_LIST);
-        if (list == null) {
-            logger.info("Retrieving baggages from picasa.");
-            list = convertPhotoEntryListToPhotoDtoList(getBaggages(new PicasaProvider(USERNAME, PASSWORD)));
-            logger.info("Putting baggages to cache.");
-            putObjectToCache(BAGGAGES_LIST, list);
-            return list;
-        } else {
-            logger.info("Returning baggages from cache.");
-            return list;
-        }
-    }
-
-    //---------------
-    //    ACCESSORIES
-    //---------------
-    private List<PhotoEntry> getAccessories(PicasaProvider provider) {
-        return provider.getAlbumPhotoEntryList(ACCESSORIES_ALBUM_ID, "?imgmax=" + ImgMax.s1024.getMaxSize());
-    }
-
-    public List<PhotoDto> getAccessories() {
-        List<PhotoDto> list = getObjectFromCache(ACCESSORIES_LIST);
-        if (list == null) {
-            logger.info("Retrieving accessories from picasa.");
-            list = convertPhotoEntryListToPhotoDtoList(getAccessories(new PicasaProvider(USERNAME, PASSWORD)));
-            logger.info("Putting accessories to cache.");
-            putObjectToCache(ACCESSORIES_LIST, list);
-            return list;
-        } else {
-            logger.info("Returning accessories from cache.");
-            return list;
-        }
-    }
+//    ---------------------
+//    ---------------------
+//    ---------------------
 
     private List<PhotoDto> convertPhotoEntryListToPhotoDtoList(List<PhotoEntry> entryList) {
         List<PhotoDto> dtoList = new ArrayList<PhotoDto>();

@@ -1,16 +1,15 @@
 <%@ include file="../../includes.jsp" %>
 
 <ul class="collNav">
-    <li>
-        <a href="<c:url value="/collections/ladies.htm"/>"><fmt:message key="ladys.collection" /></a>
-    </li>
-    <li>
-        <a href="<c:url value="/collections/handbags.htm"/>"><fmt:message key="ladys.handbags" /></a>
-    </li>
-    <li>
-        <a href="<c:url value="/collections/accessories.htm"/>"><fmt:message key="ladys.accessories" /></a>
-    </li>
-    <li>
-        <a href="<c:url value="/collections/baggages.htm"/>"><fmt:message key="ladys.baggages" /></a>
-    </li>
+
+    <%--@elvariable id="menuLabels" type="java.util.List<sk.dudas.appengine.robecca.domain.MenuLabel>"--%>
+    <c:forEach items="${menuLabels}" var="label">
+        <li>
+            <c:url var="albumURL" value="/collections/album.htm">
+                <c:param name="id" value="${label.id}"/>
+            </c:url>
+            <a href="${albumURL}">${label.name}</a>
+        </li>
+    </c:forEach>
+
 </ul>

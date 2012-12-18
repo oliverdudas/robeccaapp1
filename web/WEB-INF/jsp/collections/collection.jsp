@@ -37,7 +37,7 @@
 </script>
 
 <%--@elvariable id="collectionTitleKey" type="java.lang.String>"--%>
-<h3><fmt:message key="${collectionTitleKey}"/></h3>
+<h3>${collectionTitleKey}</h3>
 
 <%--@elvariable id="dtos" type="java.util.List<sk.dudas.appengine.robecca.service.cache.PhotoDto>"--%>
 <c:forEach items="${dtos}" var="photo">

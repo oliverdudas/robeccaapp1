@@ -1,6 +1,7 @@
 package sk.dudas.appengine.robecca.service;
 
 import com.google.appengine.api.datastore.*;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import sk.dudas.appengine.robecca.domain.MenuLabel;
 
@@ -17,6 +18,9 @@ import java.util.List;
  */
 @Service("settingsManager")
 public class SettingsManagerImpl implements SettingsManager {
+
+    @Autowired
+    private PicasaManager picasaManager;
 
     DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
 
@@ -68,6 +72,11 @@ public class SettingsManagerImpl implements SettingsManager {
                 txn.rollback();
             }
         }
+    }
+
+    public void resetCaches(String albumId) {
+        picasaManager.resetNasaPonukaLabelsCache();
+        picasaManager.resetNasaPonukaAlbumPhotoDtoList(albumId);
     }
 
     private void updateOrder(List<MenuLabel> menuLabels, MenuLabel newMenuLabel) {
