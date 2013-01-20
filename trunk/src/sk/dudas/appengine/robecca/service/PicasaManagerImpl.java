@@ -78,10 +78,7 @@ public class PicasaManagerImpl implements PicasaManager {
             pictureCache.clear();
 
             logger.info("Filling caches.");
-//            getLadies();
-//            getHandbags();
-//            getAccessories();
-//            getBaggages();
+            loadNasaPonukaAllAlbums();
             getWelcomePictureUrl();
             getHomePictureUrls();
             getCollectionsPictureUrls();
@@ -176,6 +173,16 @@ public class PicasaManagerImpl implements PicasaManager {
     //--------------------------------------
     //    NASA PONUKA MENU LABEL COLLECTIONS
     //--------------------------------------
+    private void loadNasaPonukaAllAlbums() {
+        List<MenuLabel> nasaPonukaLabels = getNasaPonukaLabels();
+        if (nasaPonukaLabels != null) {
+            for (MenuLabel nasaPonukaLabel : nasaPonukaLabels) {
+                String id = nasaPonukaLabel.getAlbum().getId();
+                getNasaPonukaMenuLabel(id);
+            }
+        }
+    }
+
     public List<MenuLabel> getNasaPonukaLabels() {
         List<MenuLabel> list = getObjectFromCache(NASA_PONUKA_MENU_LABEL_LIST);
         if (list == null) {
